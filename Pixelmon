@@ -1,0 +1,11 @@
+if game.PlaceId == 18172550962 then
+    wait(2)
+    local args = {
+        "Grasslands",
+        "Nightmare",
+        true
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("playerTP"):FireServer(unpack(args))
+else
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FrostByteV1/Scripts/refs/heads/main/PixelBlade"))()
+end
