@@ -8,5 +8,5 @@ if game.PlaceId == 18172550962 then
     game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("playerTP"):FireServer(unpack(args))
 else
    
-loadstring(game:HttpGet("https://raw.githubusercontent.com/FrostByteV1/Scripts/refs/heads/main/PixelBlade"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pythodon/Test1/refs/heads/main/Test2"))()
 end
