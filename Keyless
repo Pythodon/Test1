@@ -1,12 +1,17 @@
-if game.PlaceId == 18172550962 then
-    wait(2)
-    local args = {
-        "Grasslands",
-        "Nightmare",
-        true
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("playerTP"):FireServer(unpack(args))
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local placeId = 18172550962
+local privateCode = "c7d2a4926232d44999462e474202061c"
+
+if game.PlaceId == placeId then
+    if game.PrivateServerId == "" or game.PrivateServerOwnerId == 0 then
+        TeleportService:TeleportToPrivateServer(placeId, privateCode, {player})
+    else
+        task.wait(2)
+        game.ReplicatedStorage.remotes.playerTP:FireServer("Grasslands", "Nightmare", true)
+    end
 else
-   
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Pythodon/Test1/refs/heads/main/Test2"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Pythodon/Test1/main/Test2.lua"))()
 end
