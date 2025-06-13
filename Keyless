@@ -36,14 +36,14 @@ end
 
 if game.PlaceId == targetPlaceId then
     local count = #Players:GetPlayers()
-    if count >= 5 and count <= 16 then
+    if count >= 5 and count <= 14 then
         teleportToNightmare()
-    elseif count >= 17 then
+    elseif count >= 15 then
         local newServerId = getLowestPopServer()
         if newServerId then
             TeleportService:TeleportToPlaceInstance(targetPlaceId, newServerId, player)
         end
     end
 else
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Pythodon/Test1/main/Test2.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Pythodon/Test1/main/Test2"))()
 end
