@@ -1,16 +1,48 @@
 local TeleportService = game:GetService("TeleportService")
 local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
 local player = Players.LocalPlayer
 
-local placeId = 18172550962
-local privateCode = "c7d2a4926232d44999462e474202061c"
+local targetPlaceId = 18172550962
 
-if game.PlaceId == placeId then
+local function getLowestPopServer()
+    local lowestServer = nil
+    local lowestPlayers = math.huge
+
+    local success, result = pcall(function()
+        local url = "https://games.roblox.com/v1/games/" .. targetPlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+        local response = game:HttpGet(url)
+        return HttpService:JSONDecode(response)
+    end)
+
+    if success and result and result.data then
+        for _, server in ipairs(result.data) do
+            if server.playing < server.maxPlayers and server.id ~= game.JobId then
+                if server.playing < lowestPlayers then
+                    lowestPlayers = server.playing
+                    lowestServer = server
+                end
+            end
+        end
+    end
+
+    return lowestServer and lowestServer.id or nil
+end
+
+if game.PlaceId == targetPlaceId then
     if game.PrivateServerId == "" or game.PrivateServerOwnerId == 0 then
-        TeleportService:TeleportToPrivateServer(placeId, privateCode, {player})
+        local serverId = getLowestPopServer()
+        if serverId then
+            TeleportService:TeleportToPlaceInstance(targetPlaceId, serverId, player)
+        end
     else
         task.wait(2)
-        game.ReplicatedStorage.remotes.playerTP:FireServer("Grasslands", "Nightmare", true)
+        local args = {
+            "Grasslands",
+            "Nightmare",
+            true
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("playerTP"):FireServer(unpack(args))
     end
 else
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Pythodon/Test1/main/Test2.lua"))()
