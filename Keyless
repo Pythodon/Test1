@@ -1,49 +1,13 @@
-local TeleportService = game:GetService("TeleportService")
-local Players = game:GetService("Players")
-local HttpService = game:GetService("HttpService")
-local player = Players.LocalPlayer
-
-local targetPlaceId = 18172550962
-
-local function getLowestPopServer()
-    local lowestServerId = nil
-    local lowestPlayers = math.huge
-
-    local success, result = pcall(function()
-        local servers = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. targetPlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
-        return servers
-    end)
-
-    if success and result and result.data then
-        for _, server in ipairs(result.data) do
-            if server.playing < server.maxPlayers and server.id ~= game.JobId then
-                if server.playing < lowestPlayers then
-                    lowestPlayers = server.playing
-                    lowestServerId = server.id
-                end
-            end
-        end
-    end
-
-    return lowestServerId
-end
-
-local function teleportToNightmare()
-    task.wait(2)
-    local args = { "Grasslands", "Nightmare", true }
+if game.PlaceId == 18172550962 then
+    wait(2)
+    local args = {
+        "Grasslands",
+        "Nightmare",
+        true
+    }
     game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("playerTP"):FireServer(unpack(args))
-end
-
-if game.PlaceId == targetPlaceId then
-    local count = #Players:GetPlayers()
-    if count >= 5 and count <= 14 then
-        teleportToNightmare()
-    elseif count >= 15 then
-        local newServerId = getLowestPopServer()
-        if newServerId then
-            TeleportService:TeleportToPlaceInstance(targetPlaceId, newServerId, player)
-        end
-    end
 else
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Pythodon/Test1/refs/heads/main/Test2"))()
+   
+
+loadstring(game:HttpGet(""))()
 end
