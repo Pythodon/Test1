@@ -9,5 +9,5 @@ if game.PlaceId == 18172550962 then
 else
    
 
-loadstring(game:HttpGet(""))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pythodon/Test1/refs/heads/main/Test2"))()
 end
