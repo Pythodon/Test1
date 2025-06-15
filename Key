@@ -2,7 +2,7 @@ if game.PlaceId == 18172550962 then
     wait(2)
     local args = {
         "Grasslands",
-        "Heroic",
+        "Normal",
         true
     }
     game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("playerTP"):FireServer(unpack(args))
